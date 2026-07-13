@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bizflow AI - Smart Business Workflows</title>
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tabler Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="logo-area">
+        <div class="logo-icon">
+          <i class="ti ti-briefcase"></i>
+        </div>
+        <div>
+          <h1>Bizflow AI</h1>
+          <p class="subtitle">Autonomous Business Workflow Assistant</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div id="status-badge" class="status-badge status-offline">
+          <span class="status-dot"></span>
+          <span class="status-text">Keys Required</span>
+        </div>
+        <button id="btn-settings" class="icon-button" title="API Settings">
+          <i class="ti ti-settings"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="app-workspace">
+      <!-- Left Column: Navigation & Workflows -->
+      <section class="control-panel">
+        <div class="panel-section">
+          <h2>1. Select Department</h2>
+          <div id="workflow-tabs" class="workflow-tabs">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <div class="panel-section">
+          <h2>2. Choose Task</h2>
+          <div id="task-grid" class="task-grid">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: Interactive Agent -->
+      <section class="chat-panel">
+        <div class="chat-header" id="chat-header-bar">
+          <div class="chat-header-info">
+            <span class="task-badge" id="active-task-badge">Sales</span>
+            <h3 id="active-task-title">Qualify a lead</h3>
+          </div>
+          <p id="active-task-prompt" class="task-prompt-description">
+            Qualify this lead and score them 1-10 based on fit, urgency, and budget.
+          </p>
+        </div>
+
+        <!-- Messages Area -->
+        <div class="chat-messages" id="chat-messages-container">
+          <div class="welcome-screen" id="welcome-screen">
+            <div class="welcome-icon-wrapper" id="welcome-icon-wrapper">
+              <i class="ti ti-message-chatbot"></i>
+            </div>
+            <h4>Ready to Assist</h4>
+            <p>Select a department, click a workflow task card, then describe your scenario below to get started.</p>
+          </div>
+        </div>
+
+        <!-- Input Box -->
+        <div class="chat-input-area">
+          <div class="textarea-wrapper">
+            <textarea 
+              id="user-input" 
+              placeholder="Describe your situation here... (Ctrl+Enter to send)" 
+              rows="3"
+            ></textarea>
+            <span class="shortcut-tip">Ctrl + Enter</span>
+          </div>
+          <div class="input-actions">
+            <button id="btn-clear" class="btn btn-secondary" style="display: none;">
+              <i class="ti ti-trash"></i> Clear
+            </button>
+            <button id="btn-run" class="btn btn-primary">
+              <i class="ti ti-player-play"></i> Run Agent
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Settings Modal -->
+  <div id="settings-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3><i class="ti ti-key"></i> API Configuration</h3>
+        <button id="btn-close-settings" class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-intro">Configure your AI providers. Keys are stored locally in your browser and never shared.</p>
+        
+        <div class="form-group">
+          <label for="provider-select">Preferred AI Provider</label>
+          <select id="provider-select" class="form-select">
+            <option value="gemini">Google Gemini (Recommended)</option>
+            <option value="anthropic">Anthropic Claude</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label id="lbl-api-key" for="api-key-input">Gemini API Key</label>
+          <div class="password-input-wrapper">
+            <input type="password" id="api-key-input" class="form-input" placeholder="AIzaSy...">
+            <button type="button" id="btn-toggle-key-visibility" class="btn-toggle-visibility">
+              <i class="ti ti-eye"></i>
+            </button>
+          </div>
+          <small class="help-text">Get a key from the <a href="https://aistudio.google.com/" target="_blank">Google AI Studio</a> or <a href="https://console.anthropic.com/" target="_blank">Anthropic Console</a>.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="model-select">AI Model</label>
+          <select id="model-select" class="form-select">
+            <!-- Dynamically populated based on provider -->
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-reset-settings" class="btn btn-secondary">Clear Keys</button>
+        <button id="btn-save-settings" class="btn btn-primary">Save Settings</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Application Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
